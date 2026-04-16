@@ -10,7 +10,7 @@ from user import *
 from forms import LoginForm, RegistrationForm
 
 app = Flask(__name__, template_folder="templates")
-app.debug = True # режим разработчика
+app.debug = True 
 app.config["SECRET_KEY"] = "oodjosdjoj348u2309jf0fj"
 db = ProductDB()
 userdb = UserDB()
