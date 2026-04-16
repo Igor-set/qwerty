@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>IgorSales</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="shop">
+	{% for item in items %}
+		<div class="item" >
+			<a href="{{ url_for('product', item_id=item[0]) }}">
+				<img src="{{ url_for('static', filename='photo/' ~ item[4]) }}">
+				<p>{{ item[1] }}</p>
+				<p>{{ item[3] }}</p>
+            </a>
+				
+			<div>
+                {%if item[-1]>0%}
+                    <form action="/add" method="post">
+                        <input value="{{ item[0] }}" style="display: none;" name="id">
+                        <button type="submit" class="btn-minus" value="minus" name="action">−</button>
+                        <input type="number" class="quantity-input" value="{{ item[-1] }}" min="0">
+                        <button type="submit" class="btn-plus" value="plus" name="action">+</button>
+                    </form>
+                {%else%}
+                    <form action="/add" method="post">
+                        <input value="{{ item[0] }}" style="display: none;" name="id">
+                        <button type="submit" class="btn3" value="plus" name="action">Добавить в корзину</button>
+                    </form>
+                {%endif%}
+
+
+                
+			</div>
+			
+
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

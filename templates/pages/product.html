@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ item[1] }}</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+
+{% block main %}
+<div class="product">
+	<a class="btn2" href="{{ url_for('index') }}">←</a>
+	<h1>{{ item[1] }}</h1>
+	<div class="grid">
+		<div class="item67">
+			<img src="{{ url_for('static', filename='photo/' ~ item[4]) }}">
+		</div>
+		<div>
+			<p> {{item[2]}}</p>
+		</div>
+	</div>
+	{%if item[-1]>0%}
+                    <form action="/add" method="post">
+                        <input value="{{ item[0] }}" style="display: none;" name="id">
+                        <button type="submit" class="btn-minus" value="minus" name="action">−</button>
+                        <input type="number" class="quantity-input" value="{{ item[-1] }}" min="0">
+                        <button type="submit" class="btn-plus" value="plus" name="action">+</button>
+                    </form>
+                {%else%}
+                    <form action="/add" method="post">
+                        <input value="{{ item[0] }}" style="display: none;" name="id">
+                        <button type="submit" class="btn4" value="plus" name="action">Добавить в корзину</button>
+                    </form>
+                {%endif%}
+	</div>
+	<div>
+		<p class="product-page-price">{{ item[3] }}</p>
+	</div>
+
+</div>
+<script>
+$(document).ready(function() {
+    $('.btn-plus').click(function() {
+        const itemId = $(this).data('item');
+        const $input = $(`.qty-input[data-item="${itemId}"]`);
+        let qty = parseInt($input.val()) + 1;
+        $input.val(qty);
+        updateBasket(itemId, qty);
+    });
+    
+    $('.btn-minus').click(function() {
+        const itemId = $(this).data('item');
+        const $input = $(`.qty-input[data-item="${itemId}"]`);
+        let qty = Math.max(0, parseInt($input.val()) - 1);
+        $input.val(qty);
+        updateBasketMinus(itemId, qty);
+    });
+    
+    function updateBasket(itemId, qty) {
+        fetch('/add_basket', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({item_id: itemId, quantity: qty})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Добавлено:', data);
+            // Можете показать уведомление
+        })
+        .catch(error => console.error('Ошибка:', error));
+    }
+
+    function updateBasketMinus(itemId, qty) {
+        fetch('/del_basket', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({item_id: itemId, quantity: qty})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Добавлено:', data);
+            // Можете показать уведомление
+        })
+        .catch(error => console.error('Ошибка:', error));
+    }
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>IgorSales</title>
+{% endblock %}
+{% block main %}
+	{% include '/include/head_lk.html' %}
+	<div>
+		<div class="form">
+			<form action="/edit_lk", method="post">
+				<input type="text" name="login" placeholder="{{current_user.username}}">
+				<button type="submit" class="btn-plus" >изменить</button>
+			</form>
+			<form>
+				<form action="/edit_lk", method="post">
+				<input type="text" name="passWord" placeholder="{{current_user.username}}">
+				<button type="submit" class="btn-plus" >изменить</button>
+			</form>
+	</div>
+{% endblock %}

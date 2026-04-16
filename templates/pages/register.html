@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>IgorSales</title>
+{% endblock %}
+{% block main %}
+	<div class="login">
+		<h2>Регистрация</h2>
+		{% with msg = get_flashed_messages() %}
+			{% if msg %}
+				{% for m in msg %}
+					<p style="color: red;">{{ m }}</p>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+
+		<form method="POST">
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.username.label }}<br>{{ form.username() }}
+			</p>
+			<p>
+				{{ form.password.label }}<br>{{ form.password() }}
+			</p>
+			<p>
+				{{ form.sumbit() }}
+			</p>
+		</form>
+
+		<a href="{{ url_for('login') }}">У меня уже есть аккаунт</a>
+	</div>
+       	
+{% endblock %}
+        

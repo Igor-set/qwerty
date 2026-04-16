@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>IgorSales</title>
+    <link rel="stylesheet" href="../static/admin.css">
+{% endblock %}
+
+{% block main %}
+    <a class="dell" href="{{ url_for('add-project') }}">перейти на добавление</a>
+    <div class="del">
+        <h1>Удаление товаров</h1>
+
+        {% if products %}
+            {% for p in products %}
+                <form action="/admin/del-product" method="POST">
+                    <input type="hidden" value="{{ p[0] }}" name="id">
+                    <span>{{ p[0] }}</span>
+                    <span>{{ p[1] }}</span>
+                    <span><button type="sumbit">x</button></span>
+
+                </form>
+            {% endfor %}
+        {% else %}
+            <h2>Товаров нет</h2>
+        {% endif %}
+        
+
+    </div>
+
+{% endblock %}

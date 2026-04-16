@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>IgorSales</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+{% block main %}
+<div class="prof">
+		{% include '/include/head_lk.html' %}
+		<div class="lk_content">
+			<a href="{{url_for('pay') }}">
+			<button type="submit" class="btn_pay">перейти к оформлению</button>
+			</a>
+			{% for i in basket %}
+				<div class="item" data-item-id="{{ i['id'] }}">
+					<a href="product/{{ i['id'] }}">
+						<img src="{{ url_for('static', filename='photo/' ~ i['photo']) }}">
+						<p class="truncate">{{ i['name'] }}</p>
+						<p>{{ i['price'] }}</p>
+						<p><span>Всего: {{ i['total'] }}</span></p>
+					</a>				
+					<div class="item-controls">
+                        <form method="post" action="/add">
+	                        <input value="{{ i['id'] }}" style="display: none;" name="id">
+			                <button type="submit" class="btn-minus" data-item="{{ i['id'] }}" value="minus" name="action">−</button>
+			                <input type="number" class="quantity-input" data-item="{{ i['id'] }}" value="{{ i['count'] }}" min="0">
+			                <button type="submit" class="btn-plus" data-item="{{ i['id'] }}" value="plus" name="action">+</button>
+
+		                </form>
+
+	                    </div>
+	                
+
+				</div>
+			{% endfor %}		
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,6 @@
+<p>{{ current_user.username }}</p>
+<div class="left_menu">
+	<a href="{{ url_for('edit_lk') }}"><button>редактировать профиль</button></a>
+	<a href="{{ url_for('basket') }}"><button>корзина</button></a>
+	<a href="{{ url_for('logout') }}"><button >выйти из аккаунта</button></a>
+</div>
