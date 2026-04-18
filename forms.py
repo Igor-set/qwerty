@@ -7,7 +7,9 @@ class LoginForm(FlaskForm):
 	password = PasswordField("Пароль", validators=[DataRequired()])
 	sumbit = SubmitField("Войти")
 
+
 class RegistrationForm(FlaskForm):
 	username = StringField("Логин", validators=[DataRequired()])
 	password = PasswordField("Пароль", validators=[DataRequired()])
 	sumbit = SubmitField("Зарегистрироваться")
+

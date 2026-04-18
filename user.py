@@ -28,6 +28,8 @@ class User(UserMixin):
 
 	def is_admin(self):
 		return self.role == "admin"
+		
 	def edit_username(self,username):
 		self.id=username
 		self.username=username
+

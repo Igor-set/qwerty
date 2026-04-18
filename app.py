@@ -8,10 +8,12 @@ from db import *
 from func import check_file
 from user import *
 from forms import LoginForm, RegistrationForm
+from config import *
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True 
-app.config["SECRET_KEY"] = "oodjosdjoj348u2309jf0fj"
+app.config["SECRET_KEY"] = SECRET_KEY
+
 db = ProductDB()
 userdb = UserDB()
 
@@ -253,27 +255,6 @@ def edit_lk():
 	if "password" in request.form:
 		userdb.edit_password(request.form["password"],current_user.username)
 	return render_template("pages/edit_lk.html")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
 	app.run()
